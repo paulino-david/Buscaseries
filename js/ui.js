@@ -5,41 +5,47 @@ const cantidad_total = document.getElementById("total")
 
 const busquedas = document.getElementById("busquedas")
 
+const footer = document.getElementById("footer")
+const selected = document.getElementsByClassName("selected")
+
+
+let rango = JSON.parse(localStorage.getItem("paginacion")) || "0"
+
 export const listaBusquedas = (input) => {
 
-    const lista = JSON.parse(localStorage.getItem("listaBusquedas"))||[]
+    const lista = JSON.parse(localStorage.getItem("listaBusquedas")) || []
 
     busquedas.innerHTML = ""
-    lista.map(valor=>{
+    lista.map(valor => {
         busquedas.innerHTML += `
                     <busqueda class="categoria">${valor} <i class="fa-solid fa-xmark"></i></busqueda>
     
         `
 
-        // const btn_busqueda = document.getElementsByTagName("busqueda")
-        // console.log(btn_busqueda)
 
     })
 
-    busquedas.addEventListener("click",(e)=>{
+    busquedas.addEventListener("click", (e) => {
         e.preventDefault()
 
-        
+
         let listaStorage = JSON.parse(localStorage.getItem("listaBusquedas"))
-        
-        if (e.target.localName=="i") {
-            
+
+        if (e.target.localName == "i") {
+
             const texto_eliminar = e.target.parentElement.textContent
-            listaStorage = listaStorage.filter(valor=>valor!==texto_eliminar.trim())
-            
-            localStorage.setItem("listaBusquedas",JSON.stringify(listaStorage))
-            
+            listaStorage = listaStorage.filter(valor => valor !== texto_eliminar.trim())
+
+            localStorage.setItem("listaBusquedas", JSON.stringify(listaStorage))
+
             listaBusquedas(input)
         }
-        
-        else if (e.target.localName=="busqueda"){
-            
-            input.value = e.target.textContent
+
+        else if (e.target.localName == "busqueda") {
+
+            input.value = e.target.textContent.trim()
+            pintarSeries(input.value.trim())
+
         }
 
 
@@ -47,24 +53,47 @@ export const listaBusquedas = (input) => {
 
 }
 
-export const pintarSeries = ({buscar = "", rango = "0"} = {}) => {
+export const pintarSeries = (buscar = "") => {
 
-    getDatas(rango)
+    const listaDiv = Array.from(footer.children)
 
-        .then(datos => {
+    console.log(listaDiv)
 
-            let series = datos.filter(serie=>serie.network!==null)
+    listaDiv.map(value => {
 
-            buscar?series = datos.filter(dato=>dato.name.toLowerCase().trim().startsWith(buscar.toLowerCase().trim())) : series = datos
-            cantidad_total.textContent = buscar?`${series.length} resultados de <<${buscar.toLowerCase().trim()}>>` : `${series.length} resultados de series`
-            
-            div_series.innerHTML=""
-            
+        if (value.textContent == String(Number(JSON.parse(localStorage.getItem("paginacion"))) + 1)) {
+
+            selected[0].classList.remove("selected")
+            value.classList.add("selected")
+            // rango = String(Number(JSON.parse(localStorage.getItem("paginacion"))) + 1)
+
+        }
+
+        // console.log(value.textContent== String(Number(JSON.parse(localStorage.getItem("paginacion")))+1))
+
+        // console.log(value.textContent == rango)
+
+    })
+
+    getDatas(JSON.parse(localStorage.getItem("paginacion")) )
+    
+    .then(datos => {
+            // localStorage.setItem("paginacion", JSON.stringify(rango))
+
+            let series = datos.filter(serie => serie.network !== null && serie.rating.average!==null)
+
+            console.log(rango)
+
+            buscar ? series = datos.filter(dato => dato.name.toLowerCase().trim().startsWith(buscar.toLowerCase().trim())) : series = datos
+            cantidad_total.textContent = buscar ? `${series.length} resultados de <<${buscar.toLowerCase().trim()}>>` : `${series.length} resultados de series`
+
+            div_series.innerHTML = ""
+
             series.map(valor => {
 
-                
-valor.network?
-                div_series.innerHTML += `
+
+                valor.network ?
+                    div_series.innerHTML += `
             
             <div class="card">
 
@@ -81,7 +110,7 @@ valor.network?
                             ${valor.name}
                         </h3>
                         <p>
-                            ${valor.network.name} · ${valor.network.country.name?valor.network.country.name:"Desconocido"} · 2025
+                            ${valor.network.name} · ${valor.network.country.name ? valor.network.country.name : "Desconocido"} · 2025
                         </p>
                     </div>
 
@@ -98,7 +127,7 @@ valor.network?
                 </div>
             </div>
 
-            `:null
+            `: null
             })
 
         })
