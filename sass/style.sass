@@ -1,0 +1,138 @@
+@use "mixins"
+@use "variables"
+@use "placeholders"
+
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    font-family: "Montserrat", sans-serif
+
+    scrollbar-width: none // Firefox
+
+    &::-webkit-scrollbar
+        display: none // Chrome, Edge y Safari
+
+body
+    background-color: variables.$fondo
+    padding: 2rem 3rem
+    height: 93dvh
+    @include mixins.flex($direccion: column , $justify: left , $gap: 1rem)
+
+
+header
+    @include mixins.flex( $direccion:column,$gap: 1rem,$justify:center, $align: center)
+    width: 100%
+
+    .div-h1
+        width: 100%
+
+    .div-buscar
+        @include mixins.flex($justify: space-between, $align: center, $gap: .5rem,$wrap:wrap )
+        background-color: variables.$blanco
+        padding: .5rem .7rem
+        border-radius: .5rem
+        width: 100%
+        box-shadow: -1px 1px 6px #0000001d
+
+        input
+            width: 90%
+            height: 1.5rem
+            font-size: 16px
+            outline: none
+            border: none
+
+        .btn-buscar
+            background-color: variables.$primario
+            color: variables.$blanco
+            @extend %boton
+
+    .categorias
+
+        @include mixins.flex($justify: start , $align: center , $gap: 1rem, $wrap:wrap )
+        width: 100%
+        // height: 2rem
+
+        .categoria
+            @extend %boton
+            color: variables.$primario
+            background-color: variables.$primario-claro
+            box-shadow: -1px 1px 6px #0000001d
+
+p
+    color: variables.$texto-suave
+
+main
+    @include mixins.flex($direccion: column , $justify: left , $gap: 0rem)
+    height: 85%
+
+    .series
+        height: 100%
+        overflow-y: auto
+        padding: 2rem 0
+
+        @include mixins.flex( $wrap: wrap,$gap: 1.5rem)
+
+        .card
+            width: 18%
+            background-color: variables.$blanco
+            border-radius: 1rem
+            box-shadow: -1px 1px 6px #0000003a
+            cursor: pointer
+            // padding: .5rem
+
+            .card-img
+                width: 100%
+                // height: 73%
+
+                img
+                    width: 100%
+                    height: 100%
+                    object-fit: contain
+                    border-radius: 1rem 1rem 0 0
+
+            .info-card
+
+                @include mixins.flex($direccion:column, $justify: space-between, $gap: 1.5rem )
+                padding: .5rem
+                height: 28%
+
+                .top-card-info
+                    height: 50%
+
+                .down-card-info
+
+                    @include mixins.flex($wrap: wrap , $justify: left,$align:end, $gap: .5rem )
+
+                    height: 50%
+
+                    padding: 0 0 .5rem
+
+                    .categoria
+                        @extend %boton
+                        padding: .1rem .5rem
+                        height: 2rem
+                        background-color: #5c3df531
+                        color: #5B3DF5
+
+                    .rate
+                        background-color: #11785b2a
+                        color: #11785A
+                        
+footer
+    @include mixins.flex($justify: end, $align: center, $gap: .5rem)
+    position: absolute
+    bottom: 0rem
+    width: 95%
+    background-color: variables.$fondo
+    padding: .5rem 0
+    div
+        border: solid 1px variables.$borde
+        border-radius: .5rem
+        padding: .1rem 1rem
+        cursor: pointer
+
+    .selected
+        font-weight: bold
+        background-color: #5c3df5af
+        color: white

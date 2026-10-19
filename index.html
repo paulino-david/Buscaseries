@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css"
+        integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Font text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="div-h1">
+            <h2>
+                Buscaseries
+            </h2>
+        </div>
+
+        <form id="buscar" accept="" class="div-buscar">
+            <input type="text" placeholder="Busque la serie que desee" id="buscar-input">
+            <button class="btn-buscar" type="submit">Buscar</button>
+        </form>
+
+        <div class="categorias" id="busquedas">
+            <!-- <div class="categoria">star</div>
+            <div class="categoria">dragon</div>
+            <div class="categoria">office</div> -->
+        </div>
+
+    </header>
+
+    <main>
+
+        <p class="cantidad-results" id="total"></p>
+
+        <section class="series" id="series">
+
+            
+
+        </section>
+
+    </main>
+
+    <footer id="footer">
+        <div id="back"><i class="fa-solid fa-angle-left"></i></div>
+        <div class="selected">1</div>
+        <div class="">2</div>
+        <div class="">3</div>
+        <div>...</div>
+        <div id="next"><i class="fa-solid fa-angle-right"></i></div>
+    </footer>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
